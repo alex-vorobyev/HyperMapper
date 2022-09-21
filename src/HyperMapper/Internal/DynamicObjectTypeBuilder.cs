@@ -152,7 +152,7 @@ namespace HyperMapper.Internal
             if (ignoreTypes.Contains(fromType)) return null;
             if (ignoreTypes.Contains(toType)) return null;
 
-            var typeBuilder = assembly.DefineType($"HyperMapper.Formatters.{{{SubtractFullNameRegex.Replace(fromType.FullName, "").Replace(".", "_")}}}-{{{SubtractFullNameRegex.Replace(toType.FullName, "").Replace(".", "_")}}}Formatter{Interlocked.Increment(ref nameSequence)}",
+            var typeBuilder = assembly.DefineType($"HyperMapper.Formatters.{{{SubtractFullNameRegex.Replace(fromType.Name, "").Replace(".", "_")}}}-{{{SubtractFullNameRegex.Replace(toType.Name, "").Replace(".", "_")}}}Formatter{Interlocked.Increment(ref nameSequence)}",
                 TypeAttributes.Public | TypeAttributes.Sealed, null, new[] { typeof(IObjectMapper<TFrom, TTo>) });
 
             FieldBuilder beforeMapField = null;
