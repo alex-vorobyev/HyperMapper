@@ -103,9 +103,10 @@ namespace HyperMapper.Internal
         public static object BuildMapperFromType<TFrom, TTo>(Func<string, string> nameMutator)
         {
             var mappingInfo = MappingInfo.Create<TFrom, TTo>(nameMutator);
-            return DynamicObjectTypeBuilder.BuildMapperToAssembly<TFrom, TTo>(mappingInfo);
+            
+            //return DynamicObjectTypeBuilder.BuildMapperToAssembly<TFrom, TTo>(mappingInfo);
 
-            //return DynamicObjectTypeBuilder.BuildMapperToDynamicMethod<TFrom, TTo>(mappingInfo);
+            return DynamicObjectTypeBuilder.BuildMapperToDynamicMethod<TFrom, TTo>(mappingInfo);
         }
 
         static object HandleNullable(Type from, Type to)

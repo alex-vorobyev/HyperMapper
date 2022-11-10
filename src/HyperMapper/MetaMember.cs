@@ -37,13 +37,16 @@ namespace HyperMapper
         public MetaMember(PropertyInfo info)
         {
             this.getMethod = info.GetGetMethod(true);
-            this.setMethod = info.GetSetMethod(true);
+            this.setMethod = info.GetSetMethod(true) 
+                ?? info.DeclaringType
+                      .GetProperty(info.Name)
+                      ?.GetSetMethod(true);
 
             this.MemberName = info.Name;
             this.PropertyInfo = info;
             this.Type = info.PropertyType;
             this.IsReadable = (getMethod != null) && (getMethod.IsPublic) && !getMethod.IsStatic;
-            this.IsWritable = (setMethod != null) && (setMethod.IsPublic) && !setMethod.IsStatic;
+            this.IsWritable = (setMethod != null) /*&& (setMethod.IsPublic)*/ && !setMethod.IsStatic;
         }
 
         internal void EmitLoadValue(ILGenerator il)
